@@ -22,8 +22,11 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.victools.jsonschema.generator.Option;
 import com.github.victools.jsonschema.generator.OptionPreset;
 import com.github.victools.jsonschema.generator.SchemaGenerator;
+import com.github.victools.jsonschema.generator.SchemaGeneratorConfig;
 import com.github.victools.jsonschema.generator.SchemaGeneratorConfigBuilder;
 import com.github.victools.jsonschema.generator.SchemaVersion;
+import com.github.victools.jsonschema.module.jackson.JacksonModule;
+import com.github.victools.jsonschema.module.jakarta.validation.JakartaValidationModule;
 
 import io.quarkiverse.mcp.server.DefaultValueConverter;
 import io.quarkiverse.mcp.server.McpConnection;
@@ -45,6 +48,7 @@ public class ToolManagerImpl extends FeatureManagerBase<ToolResponse, ToolInfo> 
     private static final Logger LOG = Logger.getLogger(ToolManagerImpl.class);
 
     private final SchemaGenerator schemaGenerator;
+    private final McpServerRuntimeConfig mcpServerRuntimeConfig;
 
     final ConcurrentMap<String, ToolInfo> tools;
 
@@ -58,15 +62,34 @@ public class ToolManagerImpl extends FeatureManagerBase<ToolResponse, ToolInfo> 
             ConnectionManager connectionManager,
             Instance<CurrentIdentityAssociation> currentIdentityAssociation,
             ResponseHandlers responseHandlers,
-            @All List<ToolFilter> filters) {
+            @All List<ToolFilter> filters,
+            McpServerRuntimeConfig mcpServerRuntimeConfig) {
         super(vertx, mapper, connectionManager, currentIdentityAssociation, responseHandlers);
+        this.mcpServerRuntimeConfig = mcpServerRuntimeConfig;
         this.tools = new ConcurrentHashMap<>();
         for (FeatureMetadata<ToolResponse> f : metadata.tools()) {
             this.tools.put(f.info().name(), new ToolMethod(f));
         }
-        this.schemaGenerator = new SchemaGenerator(
-                new SchemaGeneratorConfigBuilder(SchemaVersion.DRAFT_2020_12, OptionPreset.PLAIN_JSON).without(
-                        Option.SCHEMA_VERSION_INDICATOR).build());
+
+        SchemaGeneratorConfigBuilder configBuilder = new SchemaGeneratorConfigBuilder(SchemaVersion.DRAFT_2020_12, OptionPreset.PLAIN_JSON)
+                .without(Option.SCHEMA_VERSION_INDICATOR);
+
+        if (this.mcpServerRuntimeConfig.schema != null && this.mcpServerRuntimeConfig.schema.jacksonModule != null && this.mcpServerRuntimeConfig.schema.jacksonModule.enabled) {
+            if (isClassPresent("com.github.victools.jsonschema.module.jackson.JacksonModule")) {
+                configBuilder.forTypesInGeneral().withModule(new JacksonModule());
+            } else {
+                LOG.warn("Jackson module for schema generation is enabled but 'com.github.victools.jsonschema.module.jackson.JacksonModule' not found on classpath. Skipping.");
+            }
+        }
+
+        if (this.mcpServerRuntimeConfig.schema != null && this.mcpServerRuntimeConfig.schema.jakartaValidationModule != null && this.mcpServerRuntimeConfig.schema.jakartaValidationModule.enabled) {
+            if (isClassPresent("com.github.victools.jsonschema.module.jakarta.validation.JakartaValidationModule")) {
+                configBuilder.forTypesInGeneral().withModule(new JakartaValidationModule());
+            } else {
+                LOG.warn("Jakarta Validation module for schema generation is enabled but 'com.github.victools.jsonschema.module.jakarta.validation.JakartaValidationModule' not found on classpath. Skipping.");
+            }
+        }
+        this.schemaGenerator = new SchemaGenerator(configBuilder.build());
         this.defaultValueConverters = metadata.defaultValueConverters();
         this.filters = filters;
     }
@@ -154,6 +177,20 @@ public class ToolManagerImpl extends FeatureManagerBase<ToolResponse, ToolInfo> 
             return objectNode;
         }
         return jsonNode;
+    }
+
+    // Package-private for testing purposes
+    JsonNode generateSchemaForTest(Class<?> clazz) {
+        return this.schemaGenerator.generateSchema(clazz);
+    }
+
+    private boolean isClassPresent(String className) {
+        try {
+            Class.forName(className);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
     }
 
     private boolean test(ToolInfo tool, McpConnection connection) {

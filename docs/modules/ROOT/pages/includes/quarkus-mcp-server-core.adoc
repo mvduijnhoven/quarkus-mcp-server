@@ -340,3 +340,23 @@ In other cases, the simplified format is translated to the `java.time.Duration` 
 * If the value is a number followed by `d`, it is prefixed with `P`.
 ====
 endif::no-duration-note[]
+
+
+[[config-schema-generation]]
+=== JSON Schema Generation
+
+The MCP server generates JSON schemas for tool inputs. You can enhance this generation by enabling support for Jackson and Jakarta Validation annotations.
+
+[source,properties]
+----
+# Enable Jackson module for schema generation (requires com.github.victools:jsonschema-module-jackson on classpath)
+quarkus.mcp-server.schema.jackson-module.enabled=false
+
+# Enable Jakarta Validation module for schema generation (requires com.github.victools:jsonschema-module-jakarta-validation on classpath)
+quarkus.mcp-server.schema.jakarta-validation-module.enabled=false
+----
+
+If a module is enabled but its corresponding library is not found on the classpath, a warning will be logged, and schema generation will proceed without that module's enhancements.
+
+*   `quarkus.mcp-server.schema.jackson-module.enabled`: Set to `true` to enable the Jackson module. This allows schema generation to respect Jackson annotations like `@JsonProperty` and `@JsonIgnore`.
+*   `quarkus.mcp-server.schema.jakarta-validation-module.enabled`: Set to `true` to enable the Jakarta Validation module. This allows schema generation to incorporate information from Jakarta Validation annotations like `@NotNull` (making fields required in the schema) and `@Size` (adding constraints like `minLength` and `maxLength`).
