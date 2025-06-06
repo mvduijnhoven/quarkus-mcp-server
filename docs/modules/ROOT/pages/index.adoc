@@ -556,6 +556,81 @@ public class MyTools {
 <3> The `ToolManager#newTool(String)` method returns `ToolDefinition` - a builder-like API.
 <4> Registers the tool definition and sends the `notifications/tools/list_changed` notification to all connected clients.
 
+=== Customizing JSON Schema Generation
+
+The MCP server uses the `com.github.victools:jsonschema-generator` library to generate JSON schemas for tool inputs.
+By default, this includes support for Jackson (e.g., `@JsonPropertyDescription`) and Jakarta Bean Validation (e.g., `@NotNull` implies a required field) annotations if the respective modules are on the classpath.
+
+To customize the `SchemaGeneratorConfigBuilder` used by the `ToolManager`, you can implement the `io.quarkiverse.mcp.server.runtime.config.SchemaGeneratorConfigCustomizer` interface and register your implementation as an `@ApplicationScoped` CDI bean.
+
+This interface has a single method:
+[source,java]
+----
+package io.quarkiverse.mcp.server.runtime.config;
+
+import com.github.victools.jsonschema.generator.SchemaGeneratorConfigBuilder;
+
+@FunctionalInterface
+public interface SchemaGeneratorConfigCustomizer {
+    void customize(SchemaGeneratorConfigBuilder builder);
+}
+----
+
+==== Example Customization
+
+Here's an example that adds a custom module or changes an option:
+
+[source,java]
+----
+package com.example.mcp;
+
+import com.github.victools.jsonschema.generator.SchemaGeneratorConfigBuilder;
+import com.github.victools.jsonschema.module.jakarta.validation.JakartaValidationModule;
+import com.github.victools.jsonschema.module.jakarta.validation.JakartaValidationOption;
+import io.quarkiverse.mcp.server.runtime.config.SchemaGeneratorConfigCustomizer;
+import jakarta.enterprise.context.ApplicationScoped;
+
+@ApplicationScoped
+public class MySchemaCustomizer implements SchemaGeneratorConfigCustomizer {
+
+    @Override
+    public void customize(SchemaGeneratorConfigBuilder builder) {
+        // Example: Enable a specific option for the Jakarta Validation module
+        builder.forJakartaValidation().setOption(JakartaValidationOption.NOT_NULLABLE_FIELD_IS_REQUIRED);
+
+        // Or add another module
+        // builder.with(new MyCustomSchemaModule());
+    }
+}
+----
+
+==== Default Behavior and Optional Modules
+
+A `DefaultSchemaGeneratorConfigCustomizer` is provided by the MCP server. This customizer will automatically add:
+- `com.github.victools.jsonschema.module.jackson.JacksonModule`
+- `com.github.victools.jsonschema.module.jakarta.validation.JakartaValidationModule`
+to the schema generator configuration *if these modules are found on the application's classpath*.
+
+If you want to use these modules and they are not brought in by other dependencies, you can add them to your `pom.xml`:
+
+[source,xml]
+----
+<dependency>
+    <groupId>com.github.victools</groupId>
+    <artifactId>jsonschema-module-jackson</artifactId>
+    <!-- Use the version compatible with your Quarkus MCP Server version -->
+</dependency>
+<dependency>
+    <groupId>com.github.victools</groupId>
+    <artifactId>jsonschema-module-jakarta-validation</artifactId>
+    <!-- Use the version compatible with your Quarkus MCP Server version -->
+</dependency>
+----
+Make sure to use versions of these modules that are compatible with the `jsonschema-generator` version used by the Quarkus MCP Server.
+You can typically omit the version if it's managed by the Quarkus BOM that `quarkus-mcp-server` aligns with.
+
+Custom `SchemaGeneratorConfigCustomizer` beans are applied *after* the default one, allowing you to further modify or override the configuration.
+
 === Support `@Tool`/`@P` annotations from LangChain4j
 
 The `@dev.langchain4j.agent.tool.Tool` and `@dev.langchain4j.agent.tool.P` annotations from LangChain4j can be used instead of `@Tool`/`@ToolArg`.

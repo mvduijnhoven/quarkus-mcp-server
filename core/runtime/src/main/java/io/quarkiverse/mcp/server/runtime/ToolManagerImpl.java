@@ -24,8 +24,11 @@ import com.github.victools.jsonschema.generator.OptionPreset;
 import com.github.victools.jsonschema.generator.SchemaGenerator;
 import com.github.victools.jsonschema.generator.SchemaGeneratorConfigBuilder;
 import com.github.victools.jsonschema.generator.SchemaVersion;
+import com.github.victools.jsonschema.module.jackson.JacksonModule;
+import com.github.victools.jsonschema.module.jakarta.validation.JakartaValidationModule;
 
 import io.quarkiverse.mcp.server.DefaultValueConverter;
+import io.quarkiverse.mcp.server.runtime.config.SchemaGeneratorConfigCustomizer;
 import io.quarkiverse.mcp.server.McpConnection;
 import io.quarkiverse.mcp.server.RequestId;
 import io.quarkiverse.mcp.server.ToolFilter;
@@ -58,15 +61,23 @@ public class ToolManagerImpl extends FeatureManagerBase<ToolResponse, ToolInfo> 
             ConnectionManager connectionManager,
             Instance<CurrentIdentityAssociation> currentIdentityAssociation,
             ResponseHandlers responseHandlers,
-            @All List<ToolFilter> filters) {
+            @All List<ToolFilter> filters,
+            Instance<SchemaGeneratorConfigCustomizer> schemaGeneratorConfigCustomizers) {
         super(vertx, mapper, connectionManager, currentIdentityAssociation, responseHandlers);
         this.tools = new ConcurrentHashMap<>();
         for (FeatureMetadata<ToolResponse> f : metadata.tools()) {
             this.tools.put(f.info().name(), new ToolMethod(f));
         }
-        this.schemaGenerator = new SchemaGenerator(
-                new SchemaGeneratorConfigBuilder(SchemaVersion.DRAFT_2020_12, OptionPreset.PLAIN_JSON).without(
-                        Option.SCHEMA_VERSION_INDICATOR).build());
+        SchemaGeneratorConfigBuilder configBuilder = new SchemaGeneratorConfigBuilder(SchemaVersion.DRAFT_2020_12,
+                OptionPreset.PLAIN_JSON)
+                        .without(Option.SCHEMA_VERSION_INDICATOR);
+
+        // Apply customizers
+        for (SchemaGeneratorConfigCustomizer customizer : schemaGeneratorConfigCustomizers) {
+            customizer.customize(configBuilder);
+        }
+
+        this.schemaGenerator = new SchemaGenerator(configBuilder.build());
         this.defaultValueConverters = metadata.defaultValueConverters();
         this.filters = filters;
     }

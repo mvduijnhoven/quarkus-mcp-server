@@ -29,6 +29,18 @@
             <artifactId>jsonschema-generator</artifactId>
             <version>${jsonschema-generator.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.github.victools</groupId>
+            <artifactId>jsonschema-module-jackson</artifactId>
+            <version>${jsonschema-generator.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>com.github.victools</groupId>
+            <artifactId>jsonschema-module-jakarta-validation</artifactId>
+            <version>${jsonschema-generator.version}</version>
+            <optional>true</optional>
+        </dependency>
         <!-- Test dependencies -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
