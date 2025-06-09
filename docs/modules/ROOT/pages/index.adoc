@@ -559,77 +559,116 @@ public class MyTools {
 === Customizing JSON Schema Generation
 
 The MCP server uses the `com.github.victools:jsonschema-generator` library to generate JSON schemas for tool inputs.
-By default, this includes support for Jackson (e.g., `@JsonPropertyDescription`) and Jakarta Bean Validation (e.g., `@NotNull` implies a required field) annotations if the respective modules are on the classpath.
+This library is highly configurable through modules that process various annotations (e.g., Jackson, Bean Validation) to enrich the generated schemas.
 
-To customize the `SchemaGeneratorConfigBuilder` used by the `ToolManager`, you can implement the `io.quarkiverse.mcp.server.runtime.config.SchemaGeneratorConfigCustomizer` interface and register your implementation as an `@ApplicationScoped` CDI bean.
+While you can still implement the `io.quarkiverse.mcp.server.runtime.config.SchemaGeneratorConfigCustomizer` interface for advanced, programmatic customizations, common options for the supported schema modules can now be configured directly in your `application.properties` file.
 
-This interface has a single method:
-[source,java]
+A `DefaultSchemaGeneratorConfigCustomizer` is provided by the MCP server. This customizer will automatically add the specific customizers for each of the `jsonschema-*` modules if they are present on the classpath and enabled via configuration. These individual customizers then apply their respective configurations based on your `application.properties`.
+
+==== Configuration Properties
+
+Configuration for each module is typically found under a common root, `quarkus.mcp.server.jsonschema.<module-name>.*`.
+
+===== Jackson Module (`jsonschema-jackson`)
+
+The Jackson module processes Jackson annotations (e.g., `@JsonProperty`, `@JsonIgnore`).
+You can configure its behavior using the following properties:
+
+[source,properties]
 ----
-package io.quarkiverse.mcp.server.runtime.config;
-
-import com.github.victools.jsonschema.generator.SchemaGeneratorConfigBuilder;
-
-@FunctionalInterface
-public interface SchemaGeneratorConfigCustomizer {
-    void customize(SchemaGeneratorConfigBuilder builder);
-}
+# Enable/disable specific Jackson options (defaults are shown)
+quarkus.mcp.server.jsonschema.jackson.respect-jsonproperty-required=true
+quarkus.mcp.server.jsonschema.jackson.flattened-enums-from-jsonvalue=true
+quarkus.mcp.server.jsonschema.jackson.flattened-enums-from-jsonproperty=true
+quarkus.mcp.server.jsonschema.jackson.include-only-jsonproperty-annotated-methods=true
+quarkus.mcp.server.jsonschema.jackson.jsonidentity-reference-always-as-id=true
+quarkus.mcp.server.jsonschema.jackson.always-ref-subtypes=true
+quarkus.mcp.server.jsonschema.jackson.inline-transformed-subtypes=true
 ----
 
-==== Example Customization
+If the `jsonschema-jackson` artifact is on the classpath, these properties will control the `com.github.victools.jsonschema.module.jackson.JacksonModule`.
 
-Here's an example that adds a custom module or changes an option:
+===== Jakarta Validation Module (`jsonschema-jakarta-validation`)
+
+This module processes Jakarta Bean Validation annotations (e.g., `jakarta.validation.constraints.NotNull`, `jakarta.validation.constraints.Pattern`).
+
+[source,properties]
+----
+# Enable/disable specific Jakarta Validation options (defaults are shown)
+quarkus.mcp.server.jsonschema.jakarta-validation.not-nullable-field-is-required=true
+quarkus.mcp.server.jsonschema.jakarta-validation.not-nullable-method-is-required=true
+quarkus.mcp.server.jsonschema.jakarta-validation.include-pattern-properties=true
+quarkus.mcp.server.jsonschema.jakarta-validation.include-validation-messages=false
+----
+
+If the `jsonschema-jakarta-validation` artifact is on the classpath, these properties will control the `com.github.victools.jsonschema.module.jakarta.validation.JakartaValidationModule`.
+
+===== Javax Validation Module (`jsonschema-javax-validation`)
+
+This module processes Javax Bean Validation annotations (e.g., `javax.validation.constraints.NotNull`, `javax.validation.constraints.Pattern`).
+
+[source,properties]
+----
+# Enable/disable specific Javax Validation options (defaults are shown)
+quarkus.mcp.server.jsonschema.javax-validation.not-nullable-field-is-required=true
+quarkus.mcp.server.jsonschema.javax-validation.not-nullable-method-is-required=true
+quarkus.mcp.server.jsonschema.javax-validation.include-pattern-properties=true
+quarkus.mcp.server.jsonschema.javax-validation.include-validation-messages=false
+----
+
+If the `jsonschema-javax-validation` artifact is on the classpath, these properties will control the `com.github.victools.jsonschema.module.javax.validation.JavaxValidationModule`.
+
+===== Swagger 1.5 Module (`jsonschema-swagger15`)
+
+This module processes Swagger 1.5 annotations (e.g., `io.swagger.annotations.ApiModelProperty`).
+
+[source,properties]
+----
+# Enable or disable the Swagger 1.5 module (default is true)
+quarkus.mcp.server.jsonschema.swagger15.enable=true
+----
+
+If `quarkus.mcp.server.jsonschema.swagger15.enable` is true and the `jsonschema-swagger15` artifact is on the classpath, the `com.github.victools.jsonschema.module.swagger15.SwaggerModule` will be added to the schema generator.
+
+===== Swagger 2.0 Module (`jsonschema-swagger2`)
+
+This module processes Swagger 2.0 annotations (primarily `io.swagger.annotations.ApiModelProperty` from the `swagger-annotations` 1.x library, as used by the victools module).
+
+[source,properties]
+----
+# Enable or disable the Swagger 2.0 module (default is true)
+quarkus.mcp.server.jsonschema.swagger2.enable=true
+----
+
+If `quarkus.mcp.server.jsonschema.swagger2.enable` is true and the `jsonschema-swagger2` artifact is on the classpath, the `com.github.victools.jsonschema.module.swagger2.Swagger2Module` will be added to the schema generator.
+
+==== Advanced Customization
+
+If the property-based configuration is not sufficient, you can still provide one or more CDI beans that implement `io.quarkiverse.mcp.server.runtime.config.SchemaGeneratorConfigCustomizer`. These customizers are applied *after* the default customizers and property-based configurations, allowing you to perform fine-grained adjustments to the `SchemaGeneratorConfigBuilder`.
 
 [source,java]
 ----
 package com.example.mcp;
 
 import com.github.victools.jsonschema.generator.SchemaGeneratorConfigBuilder;
-import com.github.victools.jsonschema.module.jakarta.validation.JakartaValidationModule;
-import com.github.victools.jsonschema.module.jakarta.validation.JakartaValidationOption;
+import com.github.victools.jsonschema.module.jakarta.validation.JakartaValidationOption; // Example import
 import io.quarkiverse.mcp.server.runtime.config.SchemaGeneratorConfigCustomizer;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class MySchemaCustomizer implements SchemaGeneratorConfigCustomizer {
+public class MyFineGrainedSchemaCustomizer implements SchemaGeneratorConfigCustomizer {
 
     @Override
     public void customize(SchemaGeneratorConfigBuilder builder) {
-        // Example: Enable a specific option for the Jakarta Validation module
-        builder.forJakartaValidation().setOption(JakartaValidationOption.NOT_NULLABLE_FIELD_IS_REQUIRED);
+        // Example: Force a specific option regardless of properties
+        builder.forJakartaValidation().setOption(JakartaValidationOption.ALWAYS_REF_SUBTYPES_WITH_ID);
 
-        // Or add another module
-        // builder.with(new MyCustomSchemaModule());
+        // Or add another custom module
+        // builder.with(new MyVerySpecificCustomSchemaModule());
     }
 }
 ----
-
-==== Default Behavior and Optional Modules
-
-A `DefaultSchemaGeneratorConfigCustomizer` is provided by the MCP server. This customizer will automatically add:
-- `com.github.victools.jsonschema.module.jackson.JacksonModule`
-- `com.github.victools.jsonschema.module.jakarta.validation.JakartaValidationModule`
-to the schema generator configuration *if these modules are found on the application's classpath*.
-
-If you want to use these modules and they are not brought in by other dependencies, you can add them to your `pom.xml`:
-
-[source,xml]
-----
-<dependency>
-    <groupId>com.github.victools</groupId>
-    <artifactId>jsonschema-module-jackson</artifactId>
-    <!-- Use the version compatible with your Quarkus MCP Server version -->
-</dependency>
-<dependency>
-    <groupId>com.github.victools</groupId>
-    <artifactId>jsonschema-module-jakarta-validation</artifactId>
-    <!-- Use the version compatible with your Quarkus MCP Server version -->
-</dependency>
-----
-Make sure to use versions of these modules that are compatible with the `jsonschema-generator` version used by the Quarkus MCP Server.
-You can typically omit the version if it's managed by the Quarkus BOM that `quarkus-mcp-server` aligns with.
-
-Custom `SchemaGeneratorConfigCustomizer` beans are applied *after* the default one, allowing you to further modify or override the configuration.
+This approach gives you full control over the schema generation process.
 
 === Support `@Tool`/`@P` annotations from LangChain4j
 
