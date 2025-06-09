@@ -21,6 +21,8 @@
         <module>test-utils</module>
         <module>devtools/stdio-sse-proxy</module>
         <module>cli-adapter</module>
+        <module>jsonschema-jackson</module>
+        <module>jsonschema-jakarta-validation</module>
     </modules>
 
     <scm>
