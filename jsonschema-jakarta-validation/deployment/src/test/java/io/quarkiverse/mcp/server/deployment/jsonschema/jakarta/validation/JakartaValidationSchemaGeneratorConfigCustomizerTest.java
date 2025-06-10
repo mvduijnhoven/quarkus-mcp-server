@@ -1,4 +1,4 @@
-package jakartavalidation;
+package io.quarkiverse.mcp.server.deployment.jsonschema.jakarta.validation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.quarkiverse.mcp.server.ToolManager;
-import io.quarkiverse.mcp.server.runtime.jsonschema.jakartavalidation.JakartaValidationSchemaGeneratorConfigCustomizer;
+import io.quarkiverse.mcp.server.runtime.jsonschema.jakarta.JakartaValidationSchemaGeneratorConfigCustomizer;
 import io.quarkus.test.QuarkusUnitTest;
 import io.vertx.core.json.JsonObject;
 

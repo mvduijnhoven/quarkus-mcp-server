@@ -27,11 +27,4 @@ public class JavaxValidationBuildTimeConfig {
      */
     @ConfigItem(defaultValue = "true")
     public boolean includePatternProperties;
-
-    /**
-     * Option: INCLUDE_VALIDATION_MESSAGES
-     * Include validation messages from annotations like @NotNull(message = "...")
-     */
-    @ConfigItem(defaultValue = "false") // Often default to false
-    public boolean includeValidationMessages;
 }

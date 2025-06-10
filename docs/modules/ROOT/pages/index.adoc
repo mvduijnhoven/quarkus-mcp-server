@@ -584,6 +584,10 @@ quarkus.mcp.server.jsonschema.jackson.include-only-jsonproperty-annotated-method
 quarkus.mcp.server.jsonschema.jackson.jsonidentity-reference-always-as-id=true
 quarkus.mcp.server.jsonschema.jackson.always-ref-subtypes=true
 quarkus.mcp.server.jsonschema.jackson.inline-transformed-subtypes=true
+quarkus.mcp.server.jsonschema.jackson.respect-jsonproperty-order=true
+quarkus.mcp.server.jsonschema.jackson.ignore-property-naming-strategy=false
+quarkus.mcp.server.jsonschema.jackson.skip-subtype-lookup=false
+quarkus.mcp.server.jsonschema.jackson.ignore-type-info-transform=false
 ----
 
 If the `jsonschema-jackson` artifact is on the classpath, these properties will control the `com.github.victools.jsonschema.module.jackson.JacksonModule`.
@@ -598,7 +602,7 @@ This module processes Jakarta Bean Validation annotations (e.g., `jakarta.valida
 quarkus.mcp.server.jsonschema.jakarta-validation.not-nullable-field-is-required=true
 quarkus.mcp.server.jsonschema.jakarta-validation.not-nullable-method-is-required=true
 quarkus.mcp.server.jsonschema.jakarta-validation.include-pattern-properties=true
-quarkus.mcp.server.jsonschema.jakarta-validation.include-validation-messages=false
+quarkus.mcp.server.jsonschema.jakarta-validation.include-validation-messages=true
 ----
 
 If the `jsonschema-jakarta-validation` artifact is on the classpath, these properties will control the `com.github.victools.jsonschema.module.jakarta.validation.JakartaValidationModule`.
@@ -613,7 +617,6 @@ This module processes Javax Bean Validation annotations (e.g., `javax.validation
 quarkus.mcp.server.jsonschema.javax-validation.not-nullable-field-is-required=true
 quarkus.mcp.server.jsonschema.javax-validation.not-nullable-method-is-required=true
 quarkus.mcp.server.jsonschema.javax-validation.include-pattern-properties=true
-quarkus.mcp.server.jsonschema.javax-validation.include-validation-messages=false
 ----
 
 If the `jsonschema-javax-validation` artifact is on the classpath, these properties will control the `com.github.victools.jsonschema.module.javax.validation.JavaxValidationModule`.

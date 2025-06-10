@@ -28,9 +28,6 @@ public class JavaxValidationSchemaGeneratorConfigCustomizer implements SchemaGen
         if (config.includePatternProperties) {
             options.add(JavaxValidationOption.INCLUDE_PATTERN_PROPERTIES);
         }
-        if (config.includeValidationMessages) {
-            options.add(JavaxValidationOption.INCLUDE_VALIDATION_MESSAGES);
-        }
 
         if (!options.isEmpty()) {
             builder.with(new JavaxValidationModule(options.toArray(new JavaxValidationOption[0])));

@@ -1,4 +1,4 @@
-package jakartavalidation;
+package io.quarkiverse.mcp.server.deployment.jsonschema.jakarta.validation;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.validation.constraints.NotBlank;

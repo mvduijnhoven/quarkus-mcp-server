@@ -55,4 +55,32 @@ public class JacksonBuildTimeConfig {
      */
     @ConfigItem(defaultValue = "true")
     public boolean inlineTransformedSubtypes;
+
+    /**
+     * Option: RESPECT_JSONPROPERTY_ORDER
+     * Enable if JsonProperty.order() should be respected.
+     */
+    @ConfigItem(defaultValue = "true")
+    public boolean respectJsonpropertyOrder;
+
+    /**
+     * Option: IGNORE_PROPERTY_NAMING_STRATEGY
+     * Enable if any property naming strategy should be ignored.
+     */
+    @ConfigItem(defaultValue = "false")
+    public boolean ignorePropertyNamingStrategy;
+
+    /**
+     * Option: SKIP_SUBTYPE_LOOKUP
+     * Enable if subtype lookup should be skipped.
+     */
+    @ConfigItem(defaultValue = "false")
+    public boolean skipSubtypeLookup;
+
+    /**
+     * Option: IGNORE_TYPE_INFO_TRANSFORM
+     * Enable if type info transform should be ignored.
+     */
+    @ConfigItem(defaultValue = "false")
+    public boolean ignoreTypeInfoTransform;
 }

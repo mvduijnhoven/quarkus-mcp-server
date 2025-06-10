@@ -40,6 +40,18 @@ public class JacksonSchemaGeneratorConfigCustomizer implements SchemaGeneratorCo
         if (config.respectJsonpropertyRequired) {
             options.add(JacksonOption.RESPECT_JSONPROPERTY_REQUIRED);
         }
+        if (config.respectJsonpropertyOrder) {
+            options.add(JacksonOption.RESPECT_JSONPROPERTY_ORDER);
+        }
+        if (config.ignorePropertyNamingStrategy) {
+            options.add(JacksonOption.IGNORE_PROPERTY_NAMING_STRATEGY);
+        }
+        if (config.skipSubtypeLookup) {
+            options.add(JacksonOption.SKIP_SUBTYPE_LOOKUP);
+        }
+        if (config.ignoreTypeInfoTransform) {
+            options.add(JacksonOption.IGNORE_TYPE_INFO_TRANSFORM);
+        }
         builder.with(new JacksonModule(options.toArray(new JacksonOption[0])));
     }
 }
