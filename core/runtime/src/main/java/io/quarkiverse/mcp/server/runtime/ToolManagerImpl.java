@@ -24,17 +24,15 @@ import com.github.victools.jsonschema.generator.OptionPreset;
 import com.github.victools.jsonschema.generator.SchemaGenerator;
 import com.github.victools.jsonschema.generator.SchemaGeneratorConfigBuilder;
 import com.github.victools.jsonschema.generator.SchemaVersion;
-import com.github.victools.jsonschema.module.jackson.JacksonModule;
-import com.github.victools.jsonschema.module.jakarta.validation.JakartaValidationModule;
 
 import io.quarkiverse.mcp.server.DefaultValueConverter;
-import io.quarkiverse.mcp.server.runtime.config.SchemaGeneratorConfigCustomizer;
 import io.quarkiverse.mcp.server.McpConnection;
 import io.quarkiverse.mcp.server.RequestId;
 import io.quarkiverse.mcp.server.ToolFilter;
 import io.quarkiverse.mcp.server.ToolManager;
 import io.quarkiverse.mcp.server.ToolManager.ToolInfo;
 import io.quarkiverse.mcp.server.ToolResponse;
+import io.quarkiverse.mcp.server.runtime.config.SchemaGeneratorConfigCustomizer;
 import io.quarkus.arc.All;
 import io.quarkus.security.identity.CurrentIdentityAssociation;
 import io.smallrye.mutiny.Uni;
@@ -70,7 +68,7 @@ public class ToolManagerImpl extends FeatureManagerBase<ToolResponse, ToolInfo> 
         }
         SchemaGeneratorConfigBuilder configBuilder = new SchemaGeneratorConfigBuilder(SchemaVersion.DRAFT_2020_12,
                 OptionPreset.PLAIN_JSON)
-                        .without(Option.SCHEMA_VERSION_INDICATOR);
+                .without(Option.SCHEMA_VERSION_INDICATOR);
 
         // Apply customizers
         for (SchemaGeneratorConfigCustomizer customizer : schemaGeneratorConfigCustomizers) {

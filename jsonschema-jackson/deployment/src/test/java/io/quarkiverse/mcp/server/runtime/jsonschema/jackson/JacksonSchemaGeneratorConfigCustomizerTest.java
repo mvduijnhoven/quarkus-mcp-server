@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import io.quarkiverse.mcp.server.ToolManager;
+import io.quarkiverse.mcp.server.runtime.jsonschema.jackson.config.JacksonBuildTimeConfig;
 import io.quarkus.test.QuarkusUnitTest;
 import io.vertx.core.json.JsonObject;
 
@@ -18,7 +19,7 @@ public class JacksonSchemaGeneratorConfigCustomizerTest {
     @RegisterExtension
     static final QuarkusUnitTest config = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClasses(JacksonSchemaGeneratorConfigCustomizer.class, MyTools.class));
+                    .addClasses(JacksonSchemaGeneratorConfigCustomizer.class, JacksonBuildTimeConfig.class, MyTools.class));
 
     @Inject
     ToolManager toolManager;

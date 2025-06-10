@@ -22,10 +22,10 @@
         <module>devtools/stdio-sse-proxy</module>
         <module>cli-adapter</module>
         <module>jsonschema-jackson</module>
-        <module>jsonschema-jakarta-validation</module>
+        <!--module>jsonschema-jakarta-validation</module>
         <module>jsonschema-javax-validation</module>
         <module>jsonschema-swagger2</module>
-        <module>jsonschema-swagger15</module>
+        <module>jsonschema-swagger15</module-->
     </modules>
 
     <scm>
