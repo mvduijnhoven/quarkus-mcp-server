@@ -44,7 +44,7 @@ public class ToolManagerImpl extends FeatureManagerBase<ToolResponse, ToolInfo> 
 
     private static final Logger LOG = Logger.getLogger(ToolManagerImpl.class);
 
-    private final SchemaGenerator schemaGenerator;
+    private final JsonSchemaGenerator schemaGenerator;
 
     final ConcurrentMap<String, ToolInfo> tools;
 
@@ -55,6 +55,7 @@ public class ToolManagerImpl extends FeatureManagerBase<ToolResponse, ToolInfo> 
     ToolManagerImpl(McpMetadata metadata,
             Vertx vertx,
             ObjectMapper mapper,
+            JsonSchemaGenerator schemaGenerator,
             ConnectionManager connectionManager,
             Instance<CurrentIdentityAssociation> currentIdentityAssociation,
             ResponseHandlers responseHandlers,
@@ -64,9 +65,12 @@ public class ToolManagerImpl extends FeatureManagerBase<ToolResponse, ToolInfo> 
         for (FeatureMetadata<ToolResponse> f : metadata.tools()) {
             this.tools.put(f.info().name(), new ToolMethod(f));
         }
-        this.schemaGenerator = new SchemaGenerator(
+        this.schemaGenerator = schemaGenerator;
+
+        new SchemaGenerator(
                 new SchemaGeneratorConfigBuilder(SchemaVersion.DRAFT_2020_12, OptionPreset.PLAIN_JSON).without(
                         Option.SCHEMA_VERSION_INDICATOR).build());
+
         this.defaultValueConverters = metadata.defaultValueConverters();
         this.filters = filters;
     }
