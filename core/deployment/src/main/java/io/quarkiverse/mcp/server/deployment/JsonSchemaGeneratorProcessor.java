@@ -2,34 +2,38 @@ package io.quarkiverse.mcp.server.deployment;
 
 import java.util.List;
 
-import jakarta.inject.Singleton;
+import com.github.victools.jsonschema.module.jackson.JacksonModule;
 
-import io.quarkiverse.mcp.server.runtime.JsonSchemaGenerator;
-import io.quarkiverse.mcp.server.runtime.JsonSchemaGeneratorRecorder;
-import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
+import io.quarkiverse.mcp.server.runtime.SchemaGeneratorConfigCustomizerJackson;
+import io.quarkiverse.mcp.server.runtime.SchemaGeneratorProvider;
+import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 
 public class JsonSchemaGeneratorProcessor {
 
     @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem("mcp-server-json-schema-generator");
+    void indexVictoolsModules(BuildProducer<IndexDependencyBuildItem> indexDependencyProducer) {
+        var dependenciesToIndex = List.of(
+                new IndexDependencyBuildItem("com.github.victools", "jsonschema-module-jackson"),
+                new IndexDependencyBuildItem("com.github.victools", "jsonschema-module-jakarta-validation"),
+                new IndexDependencyBuildItem("com.github.victools", "jsonschema-module-swagger-2"));
+        indexDependencyProducer.produce(dependenciesToIndex);
     }
 
     @BuildStep
-    @Record(ExecutionTime.STATIC_INIT)
-    void createJsonSchemaGenerator(BuildProducer<SyntheticBeanBuildItem> syntheticBeanBuildItemBuildProducer,
-            JsonSchemaGeneratorRecorder recorder) {
-        var syntheticBeanBuildItem = SyntheticBeanBuildItem.configure(JsonSchemaGenerator.class)
-                .scope(Singleton.class)
-                .addType(JsonSchemaGeneratorRecorder.JsonSchemaGeneratorImpl.class)
-                .unremovable()
-                .supplier(recorder.createJsonSchemaGenerator(List.of()))
-                .done();
-        syntheticBeanBuildItemBuildProducer.produce(syntheticBeanBuildItem);
+    void createJsonSchemaGenerator(BuildProducer<FeatureBuildItem> featureBuildItemProducer,
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<AdditionalBeanBuildItem> additionalBeanProducer) {
+
+        additionalBeanProducer.produce(AdditionalBeanBuildItem.unremovableOf(SchemaGeneratorProvider.class));
+
+        if (combinedIndex.getIndex().getClassByName(JacksonModule.class.getName()) != null) {
+            additionalBeanProducer.produce(AdditionalBeanBuildItem.unremovableOf(SchemaGeneratorConfigCustomizerJackson.class));
+            featureBuildItemProducer.produce(new FeatureBuildItem("mcp-server-schemagen-jackson"));
+        }
     }
 }

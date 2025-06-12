@@ -19,11 +19,7 @@ import org.jboss.logging.Logger;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.github.victools.jsonschema.generator.Option;
-import com.github.victools.jsonschema.generator.OptionPreset;
 import com.github.victools.jsonschema.generator.SchemaGenerator;
-import com.github.victools.jsonschema.generator.SchemaGeneratorConfigBuilder;
-import com.github.victools.jsonschema.generator.SchemaVersion;
 
 import io.quarkiverse.mcp.server.DefaultValueConverter;
 import io.quarkiverse.mcp.server.McpConnection;
@@ -44,7 +40,7 @@ public class ToolManagerImpl extends FeatureManagerBase<ToolResponse, ToolInfo> 
 
     private static final Logger LOG = Logger.getLogger(ToolManagerImpl.class);
 
-    private final JsonSchemaGenerator schemaGenerator;
+    private final SchemaGenerator schemaGenerator;
 
     final ConcurrentMap<String, ToolInfo> tools;
 
@@ -55,7 +51,7 @@ public class ToolManagerImpl extends FeatureManagerBase<ToolResponse, ToolInfo> 
     ToolManagerImpl(McpMetadata metadata,
             Vertx vertx,
             ObjectMapper mapper,
-            JsonSchemaGenerator schemaGenerator,
+            SchemaGenerator schemaGenerator,
             ConnectionManager connectionManager,
             Instance<CurrentIdentityAssociation> currentIdentityAssociation,
             ResponseHandlers responseHandlers,
@@ -66,11 +62,6 @@ public class ToolManagerImpl extends FeatureManagerBase<ToolResponse, ToolInfo> 
             this.tools.put(f.info().name(), new ToolMethod(f));
         }
         this.schemaGenerator = schemaGenerator;
-
-        new SchemaGenerator(
-                new SchemaGeneratorConfigBuilder(SchemaVersion.DRAFT_2020_12, OptionPreset.PLAIN_JSON).without(
-                        Option.SCHEMA_VERSION_INDICATOR).build());
-
         this.defaultValueConverters = metadata.defaultValueConverters();
         this.filters = filters;
     }
