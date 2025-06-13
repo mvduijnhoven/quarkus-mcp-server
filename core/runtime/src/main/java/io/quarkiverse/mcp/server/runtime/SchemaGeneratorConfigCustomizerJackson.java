@@ -21,9 +21,11 @@ public class SchemaGeneratorConfigCustomizerJackson implements SchemaGeneratorCo
 
     @Override
     public void customize(SchemaGeneratorConfigBuilder builder) {
-        var configuredOptions = getConfiguredOptions();
-        var jacksonModule = new JacksonModule(configuredOptions);
-        builder.with(jacksonModule);
+        if (config.enabled()) {
+            var configuredOptions = getConfiguredOptions();
+            var jacksonModule = new JacksonModule(configuredOptions);
+            builder.with(jacksonModule);
+        }
     }
 
     private JacksonOption[] getConfiguredOptions() {

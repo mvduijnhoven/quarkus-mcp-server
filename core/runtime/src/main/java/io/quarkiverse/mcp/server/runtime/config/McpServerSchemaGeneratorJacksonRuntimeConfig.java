@@ -10,6 +10,13 @@ import io.smallrye.config.WithDefault;
 public interface McpServerSchemaGeneratorJacksonRuntimeConfig {
 
     /**
+     * Whether to use the SchemaGenerator's Jackson Module.
+     * If this module is not present as a dependency, this module won't be enabled.
+     */
+    @WithDefault("true")
+    boolean enabled();
+
+    /**
      * Option: RESPECT_JSONPROPERTY_REQUIRED
      * Enable if JsonProperty.required() should be respected.
      */
