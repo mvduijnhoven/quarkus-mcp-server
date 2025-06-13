@@ -49,7 +49,8 @@ public class ToolsSchemaCustomizerJacksonTest extends McpServerTest {
             assertNotNull(productType);
             assertEquals("object", productType.getString("type"));
             assertHasRequiredProperties(productType, Set.of("identifier", "name", "price"));
-            assertHasPropertyWithNameTypeDescription(productType, "identifier", "string", "The unique identifier of the product.");
+            assertHasPropertyWithNameTypeDescription(productType, "identifier", "string",
+                    "The unique identifier of the product.");
             assertHasPropertyWithNameTypeDescription(productType, "name", "string", "The name of the product.");
             assertHasPropertyWithNameTypeDescription(productType, "description", "string", null);
             assertHasPropertyWithNameTypeDescription(productType, "price", "number", null);
@@ -57,7 +58,8 @@ public class ToolsSchemaCustomizerJacksonTest extends McpServerTest {
         });
     }
 
-    private void assertHasPropertyWithNameTypeDescription(JsonObject typeObject, String name, String expectedType, String expectedDescription) {
+    private void assertHasPropertyWithNameTypeDescription(JsonObject typeObject, String name, String expectedType,
+            String expectedDescription) {
         JsonObject properties = typeObject.getJsonObject("properties");
         assertNotNull(properties);
         JsonObject property = properties.getJsonObject(name);
@@ -79,9 +81,9 @@ public class ToolsSchemaCustomizerJacksonTest extends McpServerTest {
 
     public static class MyToolWithJacksonAnnotatedType {
 
-        @Tool(name="add-products", description = "Add multiple products to the product catalog.")
-        public String addProducts(@ToolArg(name = "products", description = "The products to add to the catalog")
-                List<Product> products) {
+        @Tool(name = "add-products", description = "Add multiple products to the product catalog.")
+        public String addProducts(
+                @ToolArg(name = "products", description = "The products to add to the catalog") List<Product> products) {
             return "ok";
         }
     }
