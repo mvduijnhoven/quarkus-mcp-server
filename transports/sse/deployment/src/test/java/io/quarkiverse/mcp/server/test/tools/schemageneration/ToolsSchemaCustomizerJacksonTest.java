@@ -1,4 +1,4 @@
-package io.quarkiverse.mcp.server.test.tools;
+package io.quarkiverse.mcp.server.test.tools.schemageneration;
 
 import static org.junit.jupiter.api.Assertions.*;
 

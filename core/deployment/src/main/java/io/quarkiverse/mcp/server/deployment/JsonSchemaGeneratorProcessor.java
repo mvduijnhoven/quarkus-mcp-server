@@ -3,8 +3,10 @@ package io.quarkiverse.mcp.server.deployment;
 import java.util.List;
 
 import com.github.victools.jsonschema.module.jackson.JacksonModule;
+import com.github.victools.jsonschema.module.jakarta.validation.JakartaValidationModule;
 
 import io.quarkiverse.mcp.server.runtime.SchemaGeneratorConfigCustomizerJackson;
+import io.quarkiverse.mcp.server.runtime.SchemaGeneratorConfigCustomizerJakartaValidation;
 import io.quarkiverse.mcp.server.runtime.SchemaGeneratorProvider;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -25,7 +27,7 @@ public class JsonSchemaGeneratorProcessor {
     }
 
     @BuildStep
-    void createJsonSchemaGenerator(BuildProducer<FeatureBuildItem> featureBuildItemProducer,
+    void provideSchemaGeneratorAndOptionalModules(BuildProducer<FeatureBuildItem> featureBuildItemProducer,
             CombinedIndexBuildItem combinedIndex,
             BuildProducer<AdditionalBeanBuildItem> additionalBeanProducer) {
 
@@ -34,6 +36,12 @@ public class JsonSchemaGeneratorProcessor {
         if (combinedIndex.getIndex().getClassByName(JacksonModule.class.getName()) != null) {
             additionalBeanProducer.produce(AdditionalBeanBuildItem.unremovableOf(SchemaGeneratorConfigCustomizerJackson.class));
             featureBuildItemProducer.produce(new FeatureBuildItem("mcp-server-schemagen-jackson"));
+        }
+
+        if (combinedIndex.getIndex().getClassByName(JakartaValidationModule.class.getName()) != null) {
+            additionalBeanProducer
+                    .produce(AdditionalBeanBuildItem.unremovableOf(SchemaGeneratorConfigCustomizerJakartaValidation.class));
+            featureBuildItemProducer.produce(new FeatureBuildItem("mcp-server-schemagen-jakarta-validation"));
         }
     }
 }
