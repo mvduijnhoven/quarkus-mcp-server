@@ -28,7 +28,7 @@ public class ToolsSchemaCustomizerSwagger2Test extends McpServerTest {
                     root -> root.addClasses(MyToolWithSwagger2AnnotatedType.class));
 
     @Test
-    public void testTools() {
+    public void testSchemaGenerationWithSwagger2Annotations() {
         initClient();
         JsonObject toolListMessage = newMessage("tools/list");
         send(toolListMessage);

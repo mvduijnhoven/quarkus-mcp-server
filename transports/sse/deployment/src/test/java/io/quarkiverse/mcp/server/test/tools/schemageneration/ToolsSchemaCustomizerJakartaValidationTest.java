@@ -33,7 +33,7 @@ public class ToolsSchemaCustomizerJakartaValidationTest extends McpServerTest {
                     root -> root.addClasses(MyToolWithJakartaValidationAnnotatedType.class));
 
     @Test
-    public void testTools() {
+    public void testSchemaGenerationWithJakartaValidationAnnotations() {
         initClient();
         JsonObject toolListMessage = newMessage("tools/list");
         send(toolListMessage);

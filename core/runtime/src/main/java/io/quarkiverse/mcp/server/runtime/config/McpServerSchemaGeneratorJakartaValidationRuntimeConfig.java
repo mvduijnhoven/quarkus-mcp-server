@@ -22,10 +22,6 @@ public interface McpServerSchemaGeneratorJakartaValidationRuntimeConfig {
      * If enabled, a field annotated with a "not-nullable" constraint (e.g., {@code @NotNull},
      * {@code @NotEmpty}, {@code @NotBlank}) will be marked as "required" in the generated schema.
      * </p>
-     * <p>
-     * <b>Default: {@code true}</b>. This is a critical default for producing accurate
-     * schemas that reflect the contract defined by Jakarta Validation annotations.
-     * </p>
      */
     @WithDefault("true")
     boolean notNullableFieldIsRequired();
@@ -37,10 +33,6 @@ public interface McpServerSchemaGeneratorJakartaValidationRuntimeConfig {
      * (e.g., {@code @NotNull}, {@code @NotEmpty}, {@code @NotBlank}) will be marked as
      * "required" in the generated schema.
      * </p>
-     * <p>
-     * <b>Default: {@code true}</b>. Similar to fields, this ensures the schema accurately
-     * reflects method-level validation constraints.
-     * </p>
      */
     @WithDefault("true")
     boolean notNullableMethodIsRequired();
@@ -51,11 +43,6 @@ public interface McpServerSchemaGeneratorJakartaValidationRuntimeConfig {
      * If enabled, for properties annotated with {@code @Email}, the schema will use
      * the "idn-email" format instead of the standard "email" format.
      * </p>
-     * <p>
-     * <b>Default: {@code false}</b>. The standard "email" format is generally sufficient.
-     * "idn-email" is a more specific format for internationalized domain names and
-     * should only be enabled if explicitly required.
-     * </p>
      */
     @WithDefault("false")
     boolean preferIdnEmailFormat();
@@ -65,10 +52,6 @@ public interface McpServerSchemaGeneratorJakartaValidationRuntimeConfig {
      * <p>
      * If enabled, for properties annotated with {@code @Pattern}, the regular
      * expression will be included in the schema as a "pattern" attribute.
-     * </p>
-     * <p>
-     * <b>Default: {@code true}</b>. Including the pattern directly in the schema
-     * provides valuable validation information to schema consumers.
      * </p>
      */
     @WithDefault("true")

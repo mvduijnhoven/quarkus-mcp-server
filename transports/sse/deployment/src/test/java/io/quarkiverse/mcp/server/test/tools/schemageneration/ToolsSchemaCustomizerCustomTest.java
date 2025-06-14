@@ -1,35 +1,41 @@
 package io.quarkiverse.mcp.server.test.tools.schemageneration;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import jakarta.enterprise.context.ApplicationScoped;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyDescription;
+import com.github.victools.jsonschema.generator.CustomDefinition;
+import com.github.victools.jsonschema.generator.CustomDefinitionProviderV2;
+import com.github.victools.jsonschema.generator.SchemaGeneratorConfigBuilder;
 
 import io.quarkiverse.mcp.server.Tool;
 import io.quarkiverse.mcp.server.ToolArg;
+import io.quarkiverse.mcp.server.runtime.SchemaGeneratorConfigCustomizer;
 import io.quarkiverse.mcp.server.test.McpServerTest;
 import io.quarkus.test.QuarkusUnitTest;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
-public class ToolsSchemaCustomizerJacksonTest extends McpServerTest {
+public class ToolsSchemaCustomizerCustomTest extends McpServerTest {
 
     @RegisterExtension
     static final QuarkusUnitTest config = defaultConfig()
-            .overrideRuntimeConfigKey("quarkus.mcp.server.schemagenerator.jackson.enabled", "true")
             .withApplicationRoot(
-                    root -> root.addClasses(MyToolWithJacksonAnnotatedType.class));
+                    root -> root.addClasses(
+                            MyToolWithJacksonAnnotatedType.class,
+                            BigDecimalAsStringCustomizer.class));
 
     @Test
-    public void testSchemaGenerationWithJacksonAnnotation() {
+    public void testSchemaGenerationWithProvidedCustomizer() {
         initClient();
         JsonObject toolListMessage = newMessage("tools/list");
         send(toolListMessage);
@@ -42,7 +48,7 @@ public class ToolsSchemaCustomizerJacksonTest extends McpServerTest {
         assertEquals(1, tools.size());
 
         assertTool(tools, "add-products", null, schema -> {
-            assertHasPropertyWithNameTypeDescription(schema, "products", "array", "The products to add to the catalog");
+            assertHasPropertyWithNameType(schema, "products", "array");
             assertHasPropertyCount(schema, 1);
             assertHasRequiredProperties(schema, Set.of("products"));
             JsonObject properties = schema.getJsonObject("properties");
@@ -50,24 +56,31 @@ public class ToolsSchemaCustomizerJacksonTest extends McpServerTest {
             JsonObject productType = productsProperty.getJsonObject("items");
             assertNotNull(productType);
             assertEquals("object", productType.getString("type"));
-            assertHasRequiredProperties(productType, Set.of("identifier", "name", "price"));
-            assertHasPropertyWithNameTypeDescription(productType, "identifier", "string",
-                    "The unique identifier of the product.");
-            assertHasPropertyWithNameTypeDescription(productType, "name", "string", "The name of the product.");
-            assertHasPropertyWithNameTypeDescription(productType, "description", "string", null);
-            assertHasPropertyWithNameTypeDescription(productType, "price", "number", null);
-            assertHasPropertyCount(productType, 4);
+            assertHasPropertyWithNameType(productType, "price", "string");
+            assertHasPropertyCount(productType, 1);
         });
     }
 
-    private void assertHasPropertyWithNameTypeDescription(JsonObject typeObject, String name, String expectedType,
-            String expectedDescription) {
+    @ApplicationScoped
+    public static class BigDecimalAsStringCustomizer implements SchemaGeneratorConfigCustomizer {
+
+        @Override
+        public void customize(SchemaGeneratorConfigBuilder builder) {
+            CustomDefinitionProviderV2 customDefinitionProvider = (javaType,
+                    context) -> javaType.getErasedType() == BigDecimal.class
+                            ? new CustomDefinition(context.createDefinition(context.getTypeContext().resolve(String.class)))
+                            : null;
+            builder.forTypesInGeneral()
+                    .withCustomDefinitionProvider(customDefinitionProvider);
+        }
+    }
+
+    private void assertHasPropertyWithNameType(JsonObject typeObject, String name, String expectedType) {
         JsonObject properties = typeObject.getJsonObject("properties");
         assertNotNull(properties);
         JsonObject property = properties.getJsonObject(name);
         assertNotNull(property);
         assertEquals(expectedType, property.getString("type"));
-        assertEquals(expectedDescription, property.getString("description"));
     }
 
     private void assertHasPropertyCount(JsonObject typeObject, int expectedNumberOfProperties) {
@@ -91,19 +104,6 @@ public class ToolsSchemaCustomizerJacksonTest extends McpServerTest {
     }
 
     public static class Product {
-
-        @JsonProperty(value = "identifier", required = true)
-        @JsonPropertyDescription("The unique identifier of the product.")
-        private String id;
-
-        @JsonProperty(value = "name", required = true)
-        @JsonPropertyDescription("The name of the product.")
-        private String name;
-
-        @JsonProperty(value = "description", required = false)
-        private String description;
-
-        @JsonProperty(value = "price", required = true)
         private BigDecimal price;
     }
 }
