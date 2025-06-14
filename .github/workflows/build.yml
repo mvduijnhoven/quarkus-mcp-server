@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - "main"
+      - "feature/schema-generation-customization-build"
     paths-ignore:
       - '.gitignore'
       - 'CODEOWNERS'
