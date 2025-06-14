@@ -4,9 +4,11 @@ import java.util.List;
 
 import com.github.victools.jsonschema.module.jackson.JacksonModule;
 import com.github.victools.jsonschema.module.jakarta.validation.JakartaValidationModule;
+import com.github.victools.jsonschema.module.swagger2.Swagger2Module;
 
 import io.quarkiverse.mcp.server.runtime.SchemaGeneratorConfigCustomizerJackson;
 import io.quarkiverse.mcp.server.runtime.SchemaGeneratorConfigCustomizerJakartaValidation;
+import io.quarkiverse.mcp.server.runtime.SchemaGeneratorConfigCustomizerSwagger2;
 import io.quarkiverse.mcp.server.runtime.SchemaGeneratorProvider;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -42,6 +44,12 @@ public class JsonSchemaGeneratorProcessor {
             additionalBeanProducer
                     .produce(AdditionalBeanBuildItem.unremovableOf(SchemaGeneratorConfigCustomizerJakartaValidation.class));
             featureBuildItemProducer.produce(new FeatureBuildItem("mcp-server-schemagen-jakarta-validation"));
+        }
+
+        if (combinedIndex.getIndex().getClassByName(Swagger2Module.class.getName()) != null) {
+            additionalBeanProducer
+                    .produce(AdditionalBeanBuildItem.unremovableOf(SchemaGeneratorConfigCustomizerSwagger2.class));
+            featureBuildItemProducer.produce(new FeatureBuildItem("mcp-server-schemagen-swagger2"));
         }
     }
 }
