@@ -19,7 +19,11 @@ import org.jboss.logging.Logger;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.github.victools.jsonschema.generator.Option;
+import com.github.victools.jsonschema.generator.OptionPreset;
 import com.github.victools.jsonschema.generator.SchemaGenerator;
+import com.github.victools.jsonschema.generator.SchemaGeneratorConfigBuilder;
+import com.github.victools.jsonschema.generator.SchemaVersion;
 
 import io.quarkiverse.mcp.server.DefaultValueConverter;
 import io.quarkiverse.mcp.server.McpConnection;
@@ -51,17 +55,17 @@ public class ToolManagerImpl extends FeatureManagerBase<ToolResponse, ToolInfo> 
     ToolManagerImpl(McpMetadata metadata,
             Vertx vertx,
             ObjectMapper mapper,
-            SchemaGenerator schemaGenerator,
             ConnectionManager connectionManager,
             Instance<CurrentIdentityAssociation> currentIdentityAssociation,
             ResponseHandlers responseHandlers,
-            @All List<ToolFilter> filters) {
+            @All List<ToolFilter> filters,
+            @All List<SchemaGeneratorConfigCustomizer> schemaGeneratorConfigCustomizers) {
         super(vertx, mapper, connectionManager, currentIdentityAssociation, responseHandlers);
         this.tools = new ConcurrentHashMap<>();
         for (FeatureMetadata<ToolResponse> f : metadata.tools()) {
             this.tools.put(f.info().name(), new ToolMethod(f));
         }
-        this.schemaGenerator = schemaGenerator;
+        this.schemaGenerator = constructSchemaGenerator(schemaGeneratorConfigCustomizers);
         this.defaultValueConverters = metadata.defaultValueConverters();
         this.filters = filters;
     }
@@ -232,6 +236,16 @@ public class ToolManagerImpl extends FeatureManagerBase<ToolResponse, ToolInfo> 
             return tool;
         }
 
+    }
+
+    private static SchemaGenerator constructSchemaGenerator(
+            List<SchemaGeneratorConfigCustomizer> schemaGeneratorConfigCustomizers) {
+        var configBuilder = new SchemaGeneratorConfigBuilder(SchemaVersion.DRAFT_2020_12, OptionPreset.PLAIN_JSON)
+                .without(Option.SCHEMA_VERSION_INDICATOR);
+        for (SchemaGeneratorConfigCustomizer customizer : schemaGeneratorConfigCustomizers) {
+            customizer.customize(configBuilder);
+        }
+        return new SchemaGenerator(configBuilder.build());
     }
 
     class ToolDefinitionImpl

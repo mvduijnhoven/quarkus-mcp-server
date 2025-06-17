@@ -5,7 +5,7 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 import io.smallrye.config.ConfigMapping;
 import io.smallrye.config.WithDefault;
 
-@ConfigMapping(prefix = "quarkus.mcp.server.schemagenerator.jakarta-validation")
+@ConfigMapping(prefix = "quarkus.mcp.server.schema-generator.jakarta-validation")
 @ConfigRoot(phase = ConfigPhase.RUN_TIME)
 public interface McpServerSchemaGeneratorJakartaValidationRuntimeConfig {
 

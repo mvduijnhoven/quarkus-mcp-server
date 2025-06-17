@@ -5,7 +5,7 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 import io.smallrye.config.ConfigMapping;
 import io.smallrye.config.WithDefault;
 
-@ConfigMapping(prefix = "quarkus.mcp.server.schemagenerator.swagger2")
+@ConfigMapping(prefix = "quarkus.mcp.server.schema-generator.swagger2")
 @ConfigRoot(phase = ConfigPhase.RUN_TIME)
 public interface McpServerSchemaGeneratorSwagger2RuntimeConfig {
 

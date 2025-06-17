@@ -1,6 +1,6 @@
 package io.quarkiverse.mcp.server.runtime;
 
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Dependent;
 
 import com.github.victools.jsonschema.generator.Module;
 import com.github.victools.jsonschema.generator.SchemaGeneratorConfigBuilder;
@@ -8,7 +8,7 @@ import com.github.victools.jsonschema.module.swagger2.Swagger2Module;
 
 import io.quarkiverse.mcp.server.runtime.config.McpServerSchemaGeneratorSwagger2RuntimeConfig;
 
-@ApplicationScoped
+@Dependent
 public class SchemaGeneratorConfigCustomizerSwagger2 implements SchemaGeneratorConfigCustomizer {
 
     private final McpServerSchemaGeneratorSwagger2RuntimeConfig config;

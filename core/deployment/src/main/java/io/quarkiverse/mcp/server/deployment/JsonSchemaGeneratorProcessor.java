@@ -1,55 +1,44 @@
 package io.quarkiverse.mcp.server.deployment;
 
-import java.util.List;
-
-import com.github.victools.jsonschema.module.jackson.JacksonModule;
-import com.github.victools.jsonschema.module.jakarta.validation.JakartaValidationModule;
-import com.github.victools.jsonschema.module.swagger2.Swagger2Module;
-
 import io.quarkiverse.mcp.server.runtime.SchemaGeneratorConfigCustomizerJackson;
 import io.quarkiverse.mcp.server.runtime.SchemaGeneratorConfigCustomizerJakartaValidation;
 import io.quarkiverse.mcp.server.runtime.SchemaGeneratorConfigCustomizerSwagger2;
-import io.quarkiverse.mcp.server.runtime.SchemaGeneratorProvider;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
+import io.quarkus.bootstrap.model.ApplicationModel;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
+import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 
 public class JsonSchemaGeneratorProcessor {
 
+    public static final String MODULE_JACKSON = "jsonschema-module-jackson";
+    public static final String MODULE_JAKARTA_VALIDATION = "jsonschema-module-jakarta-validation";
+    public static final String MODULE_SWAGGER_2 = "jsonschema-module-swagger-2";
+    public static final String VICTOOLS_GROUP_ID = "com.github.victools";
+
     @BuildStep
-    void indexVictoolsModules(BuildProducer<IndexDependencyBuildItem> indexDependencyProducer) {
-        var dependenciesToIndex = List.of(
-                new IndexDependencyBuildItem("com.github.victools", "jsonschema-module-jackson"),
-                new IndexDependencyBuildItem("com.github.victools", "jsonschema-module-jakarta-validation"),
-                new IndexDependencyBuildItem("com.github.victools", "jsonschema-module-swagger-2"));
-        indexDependencyProducer.produce(dependenciesToIndex);
+    void provideSchemaGeneratorAndOptionalModules(CurateOutcomeBuildItem curateOutcomeBuildItem,
+            BuildProducer<AdditionalBeanBuildItem> additionalBeanProducer) {
+        var appModel = curateOutcomeBuildItem.getApplicationModel();
+
+        if (isDependencyPresent(appModel, MODULE_JACKSON)) {
+            additionalBeanProducer.produce(new AdditionalBeanBuildItem(SchemaGeneratorConfigCustomizerJackson.class));
+        }
+
+        if (isDependencyPresent(appModel, MODULE_JAKARTA_VALIDATION)) {
+            additionalBeanProducer
+                    .produce(new AdditionalBeanBuildItem(SchemaGeneratorConfigCustomizerJakartaValidation.class));
+        }
+
+        if (isDependencyPresent(appModel, MODULE_SWAGGER_2)) {
+            additionalBeanProducer.produce(new AdditionalBeanBuildItem(SchemaGeneratorConfigCustomizerSwagger2.class));
+        }
     }
 
-    @BuildStep
-    void provideSchemaGeneratorAndOptionalModules(BuildProducer<FeatureBuildItem> featureBuildItemProducer,
-            CombinedIndexBuildItem combinedIndex,
-            BuildProducer<AdditionalBeanBuildItem> additionalBeanProducer) {
-
-        additionalBeanProducer.produce(AdditionalBeanBuildItem.unremovableOf(SchemaGeneratorProvider.class));
-
-        if (combinedIndex.getIndex().getClassByName(JacksonModule.class.getName()) != null) {
-            additionalBeanProducer.produce(AdditionalBeanBuildItem.unremovableOf(SchemaGeneratorConfigCustomizerJackson.class));
-            featureBuildItemProducer.produce(new FeatureBuildItem("mcp-server-schemagen-jackson"));
-        }
-
-        if (combinedIndex.getIndex().getClassByName(JakartaValidationModule.class.getName()) != null) {
-            additionalBeanProducer
-                    .produce(AdditionalBeanBuildItem.unremovableOf(SchemaGeneratorConfigCustomizerJakartaValidation.class));
-            featureBuildItemProducer.produce(new FeatureBuildItem("mcp-server-schemagen-jakarta-validation"));
-        }
-
-        if (combinedIndex.getIndex().getClassByName(Swagger2Module.class.getName()) != null) {
-            additionalBeanProducer
-                    .produce(AdditionalBeanBuildItem.unremovableOf(SchemaGeneratorConfigCustomizerSwagger2.class));
-            featureBuildItemProducer.produce(new FeatureBuildItem("mcp-server-schemagen-swagger2"));
-        }
+    private boolean isDependencyPresent(ApplicationModel applicationModel, String artifactId) {
+        return applicationModel.getRuntimeDependencies()
+                .stream()
+                .anyMatch(dependency -> VICTOOLS_GROUP_ID.equals(dependency.getGroupId()) &&
+                        artifactId.equals(dependency.getArtifactId()));
     }
 }

@@ -2,7 +2,7 @@ package io.quarkiverse.mcp.server.runtime;
 
 import java.util.ArrayList;
 
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Dependent;
 
 import com.github.victools.jsonschema.generator.Module;
 import com.github.victools.jsonschema.generator.SchemaGeneratorConfigBuilder;
@@ -11,7 +11,7 @@ import com.github.victools.jsonschema.module.jakarta.validation.JakartaValidatio
 
 import io.quarkiverse.mcp.server.runtime.config.McpServerSchemaGeneratorJakartaValidationRuntimeConfig;
 
-@ApplicationScoped
+@Dependent
 public class SchemaGeneratorConfigCustomizerJakartaValidation implements SchemaGeneratorConfigCustomizer {
 
     private final McpServerSchemaGeneratorJakartaValidationRuntimeConfig config;

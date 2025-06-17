@@ -28,7 +28,7 @@ public class ToolsSchemaCustomizerJakartaValidationTest extends McpServerTest {
 
     @RegisterExtension
     static final QuarkusUnitTest config = defaultConfig()
-            .overrideRuntimeConfigKey("quarkus.mcp.server.schemagenerator.jakarta-validation.enabled", "true")
+            .overrideRuntimeConfigKey("quarkus.mcp.server.schema-generator.jakarta-validation.enabled", "true")
             .withApplicationRoot(
                     root -> root.addClasses(MyToolWithJakartaValidationAnnotatedType.class));
 

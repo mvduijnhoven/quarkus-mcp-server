@@ -2,7 +2,7 @@ package io.quarkiverse.mcp.server.runtime;
 
 import java.util.ArrayList;
 
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Dependent;
 
 import com.github.victools.jsonschema.generator.Module;
 import com.github.victools.jsonschema.generator.SchemaGeneratorConfigBuilder;
@@ -11,7 +11,7 @@ import com.github.victools.jsonschema.module.jackson.JacksonOption;
 
 import io.quarkiverse.mcp.server.runtime.config.McpServerSchemaGeneratorJacksonRuntimeConfig;
 
-@ApplicationScoped
+@Dependent
 public class SchemaGeneratorConfigCustomizerJackson implements SchemaGeneratorConfigCustomizer {
 
     private final McpServerSchemaGeneratorJacksonRuntimeConfig config;

@@ -28,9 +28,9 @@ endif::add-copy-button-to-env-var[]
 a|`fail`, `ignore`
 |`fail`
 
-a| [[quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-enabled]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-enabled[`quarkus.mcp.server.schemagenerator.jackson.enabled`]##
+a| [[quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-enabled]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-enabled[`quarkus.mcp.server.schema-generator.jackson.enabled`]##
 ifdef::add-copy-button-to-config-props[]
-config_property_copy_button:+++quarkus.mcp.server.schemagenerator.jackson.enabled+++[]
+config_property_copy_button:+++quarkus.mcp.server.schema-generator.jackson.enabled+++[]
 endif::add-copy-button-to-config-props[]
 
 
@@ -40,18 +40,18 @@ Whether to use the SchemaGenerator's Jackson Module. If this module is not prese
 
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_ENABLED+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_ENABLED+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_ENABLED+++`
+Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_ENABLED+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
 |`true`
 
-a| [[quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-respect-json-property-order]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-respect-json-property-order[`quarkus.mcp.server.schemagenerator.jackson.respect-json-property-order`]##
+a| [[quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-respect-json-property-order]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-respect-json-property-order[`quarkus.mcp.server.schema-generator.jackson.respect-json-property-order`]##
 ifdef::add-copy-button-to-config-props[]
-config_property_copy_button:+++quarkus.mcp.server.schemagenerator.jackson.respect-json-property-order+++[]
+config_property_copy_button:+++quarkus.mcp.server.schema-generator.jackson.respect-json-property-order+++[]
 endif::add-copy-button-to-config-props[]
 
 
@@ -63,18 +63,18 @@ If enabled, the order of properties in the generated schema will respect the ord
 
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_RESPECT_JSON_PROPERTY_ORDER+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_RESPECT_JSON_PROPERTY_ORDER+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_RESPECT_JSON_PROPERTY_ORDER+++`
+Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_RESPECT_JSON_PROPERTY_ORDER+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
 |`true`
 
-a| [[quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-respect-json-property-required]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-respect-json-property-required[`quarkus.mcp.server.schemagenerator.jackson.respect-json-property-required`]##
+a| [[quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-respect-json-property-required]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-respect-json-property-required[`quarkus.mcp.server.schema-generator.jackson.respect-json-property-required`]##
 ifdef::add-copy-button-to-config-props[]
-config_property_copy_button:+++quarkus.mcp.server.schemagenerator.jackson.respect-json-property-required+++[]
+config_property_copy_button:+++quarkus.mcp.server.schema-generator.jackson.respect-json-property-required+++[]
 endif::add-copy-button-to-config-props[]
 
 
@@ -86,18 +86,18 @@ If enabled, a property will be marked as "required" in the schema if its corresp
 
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_RESPECT_JSON_PROPERTY_REQUIRED+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_RESPECT_JSON_PROPERTY_REQUIRED+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_RESPECT_JSON_PROPERTY_REQUIRED+++`
+Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_RESPECT_JSON_PROPERTY_REQUIRED+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
 |`true`
 
-a| [[quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-flattened-enums-from-json-value]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-flattened-enums-from-json-value[`quarkus.mcp.server.schemagenerator.jackson.flattened-enums-from-json-value`]##
+a| [[quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-flattened-enums-from-json-value]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-flattened-enums-from-json-value[`quarkus.mcp.server.schema-generator.jackson.flattened-enums-from-json-value`]##
 ifdef::add-copy-button-to-config-props[]
-config_property_copy_button:+++quarkus.mcp.server.schemagenerator.jackson.flattened-enums-from-json-value+++[]
+config_property_copy_button:+++quarkus.mcp.server.schema-generator.jackson.flattened-enums-from-json-value+++[]
 endif::add-copy-button-to-config-props[]
 
 
@@ -109,18 +109,18 @@ If enabled, the schema for an enum will be a simple array of values (e.g., strin
 
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_FLATTENED_ENUMS_FROM_JSON_VALUE+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_FLATTENED_ENUMS_FROM_JSON_VALUE+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_FLATTENED_ENUMS_FROM_JSON_VALUE+++`
+Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_FLATTENED_ENUMS_FROM_JSON_VALUE+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
 |`true`
 
-a| [[quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-flattened-enums-from-json-property]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-flattened-enums-from-json-property[`quarkus.mcp.server.schemagenerator.jackson.flattened-enums-from-json-property`]##
+a| [[quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-flattened-enums-from-json-property]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-flattened-enums-from-json-property[`quarkus.mcp.server.schema-generator.jackson.flattened-enums-from-json-property`]##
 ifdef::add-copy-button-to-config-props[]
-config_property_copy_button:+++quarkus.mcp.server.schemagenerator.jackson.flattened-enums-from-json-property+++[]
+config_property_copy_button:+++quarkus.mcp.server.schema-generator.jackson.flattened-enums-from-json-property+++[]
 endif::add-copy-button-to-config-props[]
 
 
@@ -132,18 +132,18 @@ If enabled, the schema for an enum will be derived from `@JsonProperty` annotati
 
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_FLATTENED_ENUMS_FROM_JSON_PROPERTY+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_FLATTENED_ENUMS_FROM_JSON_PROPERTY+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_FLATTENED_ENUMS_FROM_JSON_PROPERTY+++`
+Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_FLATTENED_ENUMS_FROM_JSON_PROPERTY+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
 |`false`
 
-a| [[quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-include-only-json-property-annotated-methods]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-include-only-json-property-annotated-methods[`quarkus.mcp.server.schemagenerator.jackson.include-only-json-property-annotated-methods`]##
+a| [[quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-include-only-json-property-annotated-methods]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-include-only-json-property-annotated-methods[`quarkus.mcp.server.schema-generator.jackson.include-only-json-property-annotated-methods`]##
 ifdef::add-copy-button-to-config-props[]
-config_property_copy_button:+++quarkus.mcp.server.schemagenerator.jackson.include-only-json-property-annotated-methods+++[]
+config_property_copy_button:+++quarkus.mcp.server.schema-generator.jackson.include-only-json-property-annotated-methods+++[]
 endif::add-copy-button-to-config-props[]
 
 
@@ -155,18 +155,18 @@ If enabled, only methods explicitly annotated with `@JsonProperty` will be inclu
 
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_INCLUDE_ONLY_JSON_PROPERTY_ANNOTATED_METHODS+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_INCLUDE_ONLY_JSON_PROPERTY_ANNOTATED_METHODS+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_INCLUDE_ONLY_JSON_PROPERTY_ANNOTATED_METHODS+++`
+Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_INCLUDE_ONLY_JSON_PROPERTY_ANNOTATED_METHODS+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
 |`false`
 
-a| [[quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-ignore-property-naming-strategy]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-ignore-property-naming-strategy[`quarkus.mcp.server.schemagenerator.jackson.ignore-property-naming-strategy`]##
+a| [[quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-ignore-property-naming-strategy]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-ignore-property-naming-strategy[`quarkus.mcp.server.schema-generator.jackson.ignore-property-naming-strategy`]##
 ifdef::add-copy-button-to-config-props[]
-config_property_copy_button:+++quarkus.mcp.server.schemagenerator.jackson.ignore-property-naming-strategy+++[]
+config_property_copy_button:+++quarkus.mcp.server.schema-generator.jackson.ignore-property-naming-strategy+++[]
 endif::add-copy-button-to-config-props[]
 
 
@@ -178,18 +178,18 @@ If enabled, any configured `PropertyNamingStrategy` (e.g., snake_case) will be i
 
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_IGNORE_PROPERTY_NAMING_STRATEGY+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_IGNORE_PROPERTY_NAMING_STRATEGY+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_IGNORE_PROPERTY_NAMING_STRATEGY+++`
+Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_IGNORE_PROPERTY_NAMING_STRATEGY+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
 |`false`
 
-a| [[quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-always-ref-subtypes]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-always-ref-subtypes[`quarkus.mcp.server.schemagenerator.jackson.always-ref-subtypes`]##
+a| [[quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-always-ref-subtypes]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-always-ref-subtypes[`quarkus.mcp.server.schema-generator.jackson.always-ref-subtypes`]##
 ifdef::add-copy-button-to-config-props[]
-config_property_copy_button:+++quarkus.mcp.server.schemagenerator.jackson.always-ref-subtypes+++[]
+config_property_copy_button:+++quarkus.mcp.server.schema-generator.jackson.always-ref-subtypes+++[]
 endif::add-copy-button-to-config-props[]
 
 
@@ -201,18 +201,18 @@ If enabled, subtypes in a polymorphic hierarchy will always be represented by a 
 
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_ALWAYS_REF_SUBTYPES+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_ALWAYS_REF_SUBTYPES+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_ALWAYS_REF_SUBTYPES+++`
+Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_ALWAYS_REF_SUBTYPES+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
 |`false`
 
-a| [[quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-inline-transformed-subtypes]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-inline-transformed-subtypes[`quarkus.mcp.server.schemagenerator.jackson.inline-transformed-subtypes`]##
+a| [[quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-inline-transformed-subtypes]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-inline-transformed-subtypes[`quarkus.mcp.server.schema-generator.jackson.inline-transformed-subtypes`]##
 ifdef::add-copy-button-to-config-props[]
-config_property_copy_button:+++quarkus.mcp.server.schemagenerator.jackson.inline-transformed-subtypes+++[]
+config_property_copy_button:+++quarkus.mcp.server.schema-generator.jackson.inline-transformed-subtypes+++[]
 endif::add-copy-button-to-config-props[]
 
 
@@ -224,18 +224,18 @@ A specialized option for handling subtypes that have been transformed.
 
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_INLINE_TRANSFORMED_SUBTYPES+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_INLINE_TRANSFORMED_SUBTYPES+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_INLINE_TRANSFORMED_SUBTYPES+++`
+Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_INLINE_TRANSFORMED_SUBTYPES+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
 |`false`
 
-a| [[quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-skip-subtype-lookup]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-skip-subtype-lookup[`quarkus.mcp.server.schemagenerator.jackson.skip-subtype-lookup`]##
+a| [[quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-skip-subtype-lookup]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-skip-subtype-lookup[`quarkus.mcp.server.schema-generator.jackson.skip-subtype-lookup`]##
 ifdef::add-copy-button-to-config-props[]
-config_property_copy_button:+++quarkus.mcp.server.schemagenerator.jackson.skip-subtype-lookup+++[]
+config_property_copy_button:+++quarkus.mcp.server.schema-generator.jackson.skip-subtype-lookup+++[]
 endif::add-copy-button-to-config-props[]
 
 
@@ -247,18 +247,18 @@ If enabled, subtype resolution via `@JsonSubTypes` will be disabled entirely.
 
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_SKIP_SUBTYPE_LOOKUP+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_SKIP_SUBTYPE_LOOKUP+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_SKIP_SUBTYPE_LOOKUP+++`
+Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_SKIP_SUBTYPE_LOOKUP+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
 |`false`
 
-a| [[quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-ignore-type-info-transform]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-ignore-type-info-transform[`quarkus.mcp.server.schemagenerator.jackson.ignore-type-info-transform`]##
+a| [[quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-ignore-type-info-transform]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-ignore-type-info-transform[`quarkus.mcp.server.schema-generator.jackson.ignore-type-info-transform`]##
 ifdef::add-copy-button-to-config-props[]
-config_property_copy_button:+++quarkus.mcp.server.schemagenerator.jackson.ignore-type-info-transform+++[]
+config_property_copy_button:+++quarkus.mcp.server.schema-generator.jackson.ignore-type-info-transform+++[]
 endif::add-copy-button-to-config-props[]
 
 
@@ -270,18 +270,18 @@ If enabled, the transformation of the schema based on a `@JsonTypeInfo` annotati
 
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_IGNORE_TYPE_INFO_TRANSFORM+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_IGNORE_TYPE_INFO_TRANSFORM+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_IGNORE_TYPE_INFO_TRANSFORM+++`
+Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_IGNORE_TYPE_INFO_TRANSFORM+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
 |`false`
 
-a| [[quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-json-identity-reference-always-as-id]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jackson-json-identity-reference-always-as-id[`quarkus.mcp.server.schemagenerator.jackson.json-identity-reference-always-as-id`]##
+a| [[quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-json-identity-reference-always-as-id]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jackson-json-identity-reference-always-as-id[`quarkus.mcp.server.schema-generator.jackson.json-identity-reference-always-as-id`]##
 ifdef::add-copy-button-to-config-props[]
-config_property_copy_button:+++quarkus.mcp.server.schemagenerator.jackson.json-identity-reference-always-as-id+++[]
+config_property_copy_button:+++quarkus.mcp.server.schema-generator.jackson.json-identity-reference-always-as-id+++[]
 endif::add-copy-button-to-config-props[]
 
 
@@ -293,18 +293,18 @@ If enabled, properties referencing an object that has an ID (via `@JsonIdentityI
 
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_JSON_IDENTITY_REFERENCE_ALWAYS_AS_ID+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_JSON_IDENTITY_REFERENCE_ALWAYS_AS_ID+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JACKSON_JSON_IDENTITY_REFERENCE_ALWAYS_AS_ID+++`
+Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JACKSON_JSON_IDENTITY_REFERENCE_ALWAYS_AS_ID+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
 |`false`
 
-a| [[quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-swagger2-enabled]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-swagger2-enabled[`quarkus.mcp.server.schemagenerator.swagger2.enabled`]##
+a| [[quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-swagger2-enabled]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-swagger2-enabled[`quarkus.mcp.server.schema-generator.swagger2.enabled`]##
 ifdef::add-copy-button-to-config-props[]
-config_property_copy_button:+++quarkus.mcp.server.schemagenerator.swagger2.enabled+++[]
+config_property_copy_button:+++quarkus.mcp.server.schema-generator.swagger2.enabled+++[]
 endif::add-copy-button-to-config-props[]
 
 
@@ -314,18 +314,18 @@ Whether to use the SchemaGenerator's Swagger 2 Module. If this module is not pre
 
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_SWAGGER2_ENABLED+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_SWAGGER2_ENABLED+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_SWAGGER2_ENABLED+++`
+Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_SWAGGER2_ENABLED+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
 |`true`
 
-a| [[quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jakarta-validation-enabled]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jakarta-validation-enabled[`quarkus.mcp.server.schemagenerator.jakarta-validation.enabled`]##
+a| [[quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jakarta-validation-enabled]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jakarta-validation-enabled[`quarkus.mcp.server.schema-generator.jakarta-validation.enabled`]##
 ifdef::add-copy-button-to-config-props[]
-config_property_copy_button:+++quarkus.mcp.server.schemagenerator.jakarta-validation.enabled+++[]
+config_property_copy_button:+++quarkus.mcp.server.schema-generator.jakarta-validation.enabled+++[]
 endif::add-copy-button-to-config-props[]
 
 
@@ -335,18 +335,18 @@ Whether to use the SchemaGenerator's Jakarta Validation Module. If this module i
 
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JAKARTA_VALIDATION_ENABLED+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JAKARTA_VALIDATION_ENABLED+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JAKARTA_VALIDATION_ENABLED+++`
+Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JAKARTA_VALIDATION_ENABLED+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
 |`true`
 
-a| [[quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jakarta-validation-not-nullable-field-is-required]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jakarta-validation-not-nullable-field-is-required[`quarkus.mcp.server.schemagenerator.jakarta-validation.not-nullable-field-is-required`]##
+a| [[quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jakarta-validation-not-nullable-field-is-required]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jakarta-validation-not-nullable-field-is-required[`quarkus.mcp.server.schema-generator.jakarta-validation.not-nullable-field-is-required`]##
 ifdef::add-copy-button-to-config-props[]
-config_property_copy_button:+++quarkus.mcp.server.schemagenerator.jakarta-validation.not-nullable-field-is-required+++[]
+config_property_copy_button:+++quarkus.mcp.server.schema-generator.jakarta-validation.not-nullable-field-is-required+++[]
 endif::add-copy-button-to-config-props[]
 
 
@@ -358,18 +358,18 @@ If enabled, a field annotated with a "not-nullable" constraint (e.g., `@NotNull`
 
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JAKARTA_VALIDATION_NOT_NULLABLE_FIELD_IS_REQUIRED+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JAKARTA_VALIDATION_NOT_NULLABLE_FIELD_IS_REQUIRED+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JAKARTA_VALIDATION_NOT_NULLABLE_FIELD_IS_REQUIRED+++`
+Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JAKARTA_VALIDATION_NOT_NULLABLE_FIELD_IS_REQUIRED+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
 |`true`
 
-a| [[quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jakarta-validation-not-nullable-method-is-required]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jakarta-validation-not-nullable-method-is-required[`quarkus.mcp.server.schemagenerator.jakarta-validation.not-nullable-method-is-required`]##
+a| [[quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jakarta-validation-not-nullable-method-is-required]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jakarta-validation-not-nullable-method-is-required[`quarkus.mcp.server.schema-generator.jakarta-validation.not-nullable-method-is-required`]##
 ifdef::add-copy-button-to-config-props[]
-config_property_copy_button:+++quarkus.mcp.server.schemagenerator.jakarta-validation.not-nullable-method-is-required+++[]
+config_property_copy_button:+++quarkus.mcp.server.schema-generator.jakarta-validation.not-nullable-method-is-required+++[]
 endif::add-copy-button-to-config-props[]
 
 
@@ -381,18 +381,18 @@ If enabled, a method (typically a getter) annotated with a "not-nullable" constr
 
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JAKARTA_VALIDATION_NOT_NULLABLE_METHOD_IS_REQUIRED+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JAKARTA_VALIDATION_NOT_NULLABLE_METHOD_IS_REQUIRED+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JAKARTA_VALIDATION_NOT_NULLABLE_METHOD_IS_REQUIRED+++`
+Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JAKARTA_VALIDATION_NOT_NULLABLE_METHOD_IS_REQUIRED+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
 |`true`
 
-a| [[quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jakarta-validation-prefer-idn-email-format]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jakarta-validation-prefer-idn-email-format[`quarkus.mcp.server.schemagenerator.jakarta-validation.prefer-idn-email-format`]##
+a| [[quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jakarta-validation-prefer-idn-email-format]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jakarta-validation-prefer-idn-email-format[`quarkus.mcp.server.schema-generator.jakarta-validation.prefer-idn-email-format`]##
 ifdef::add-copy-button-to-config-props[]
-config_property_copy_button:+++quarkus.mcp.server.schemagenerator.jakarta-validation.prefer-idn-email-format+++[]
+config_property_copy_button:+++quarkus.mcp.server.schema-generator.jakarta-validation.prefer-idn-email-format+++[]
 endif::add-copy-button-to-config-props[]
 
 
@@ -404,18 +404,18 @@ If enabled, for properties annotated with `@Email`, the schema will use the "idn
 
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JAKARTA_VALIDATION_PREFER_IDN_EMAIL_FORMAT+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JAKARTA_VALIDATION_PREFER_IDN_EMAIL_FORMAT+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JAKARTA_VALIDATION_PREFER_IDN_EMAIL_FORMAT+++`
+Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JAKARTA_VALIDATION_PREFER_IDN_EMAIL_FORMAT+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
 |`false`
 
-a| [[quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jakarta-validation-include-pattern-expressions]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schemagenerator-jakarta-validation-include-pattern-expressions[`quarkus.mcp.server.schemagenerator.jakarta-validation.include-pattern-expressions`]##
+a| [[quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jakarta-validation-include-pattern-expressions]] [.property-path]##link:#quarkus-mcp-server-core_quarkus-mcp-server-schema-generator-jakarta-validation-include-pattern-expressions[`quarkus.mcp.server.schema-generator.jakarta-validation.include-pattern-expressions`]##
 ifdef::add-copy-button-to-config-props[]
-config_property_copy_button:+++quarkus.mcp.server.schemagenerator.jakarta-validation.include-pattern-expressions+++[]
+config_property_copy_button:+++quarkus.mcp.server.schema-generator.jakarta-validation.include-pattern-expressions+++[]
 endif::add-copy-button-to-config-props[]
 
 
@@ -427,10 +427,10 @@ If enabled, for properties annotated with `@Pattern`, the regular expression wil
 
 
 ifdef::add-copy-button-to-env-var[]
-Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JAKARTA_VALIDATION_INCLUDE_PATTERN_EXPRESSIONS+++[]
+Environment variable: env_var_with_copy_button:+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JAKARTA_VALIDATION_INCLUDE_PATTERN_EXPRESSIONS+++[]
 endif::add-copy-button-to-env-var[]
 ifndef::add-copy-button-to-env-var[]
-Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMAGENERATOR_JAKARTA_VALIDATION_INCLUDE_PATTERN_EXPRESSIONS+++`
+Environment variable: `+++QUARKUS_MCP_SERVER_SCHEMA_GENERATOR_JAKARTA_VALIDATION_INCLUDE_PATTERN_EXPRESSIONS+++`
 endif::add-copy-button-to-env-var[]
 --
 |boolean
