@@ -14,6 +14,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import io.quarkiverse.mcp.server.Tool;
 import io.quarkiverse.mcp.server.ToolArg;
 import io.quarkiverse.mcp.server.test.McpServerTest;
+import io.quarkus.maven.dependency.Dependency;
 import io.quarkus.test.QuarkusUnitTest;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.vertx.core.json.JsonArray;
@@ -23,7 +24,7 @@ public class ToolsSchemaCustomizerSwagger2Test extends McpServerTest {
 
     @RegisterExtension
     static final QuarkusUnitTest config = defaultConfig()
-            .overrideRuntimeConfigKey("quarkus.mcp.server.schema-generator.swagger2.enabled", "true")
+            .setForcedDependencies(List.of(Dependency.of("com.github.victools", "jsonschema-module-swagger-2", "4.38.0")))
             .withApplicationRoot(
                     root -> root.addClasses(MyToolWithSwagger2AnnotatedType.class));
 

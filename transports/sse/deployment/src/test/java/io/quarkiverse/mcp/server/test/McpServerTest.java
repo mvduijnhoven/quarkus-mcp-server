@@ -43,8 +43,6 @@ public abstract class McpServerTest {
             config.overrideConfigKey("quarkus.mcp.server.traffic-logging.enabled", "true");
             config.overrideConfigKey("quarkus.mcp.server.traffic-logging.text-limit", "" + textLimit);
         }
-        config.overrideRuntimeConfigKey("quarkus.mcp.server.schema-generator.jackson.enabled", "false");
-        config.overrideRuntimeConfigKey("quarkus.mcp.server.schema-generator.jakarta-validation.enabled", "false");
         return config;
     }
 
