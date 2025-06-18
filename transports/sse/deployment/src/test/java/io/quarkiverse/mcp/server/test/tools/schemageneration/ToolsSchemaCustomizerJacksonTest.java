@@ -16,7 +16,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyDescription;
 import io.quarkiverse.mcp.server.Tool;
 import io.quarkiverse.mcp.server.ToolArg;
 import io.quarkiverse.mcp.server.test.McpServerTest;
-import io.quarkus.maven.dependency.Dependency;
 import io.quarkus.test.QuarkusUnitTest;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -25,7 +24,7 @@ public class ToolsSchemaCustomizerJacksonTest extends McpServerTest {
 
     @RegisterExtension
     static final QuarkusUnitTest config = defaultConfig()
-            .setForcedDependencies(List.of(Dependency.of("com.github.victools", "jsonschema-module-jackson", "4.38.0")))
+            .overrideRuntimeConfigKey("quarkus.mcp.server.schema-generator.jackson.enabled", "true")
             .withApplicationRoot(
                     root -> root.addClasses(MyToolWithJacksonAnnotatedType.class));
 
