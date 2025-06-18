@@ -45,6 +45,7 @@ public abstract class McpServerTest {
         }
         config.overrideRuntimeConfigKey("quarkus.mcp.server.schema-generator.jackson.enabled", "false");
         config.overrideRuntimeConfigKey("quarkus.mcp.server.schema-generator.jakarta-validation.enabled", "false");
+        config.overrideRuntimeConfigKey("quarkus.mcp.server.schema-generator.swagger2.enabled", "false");
         return config;
     }
 
